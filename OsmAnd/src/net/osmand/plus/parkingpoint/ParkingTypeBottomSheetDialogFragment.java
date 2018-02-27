@@ -34,8 +34,8 @@ public class ParkingTypeBottomSheetDialogFragment extends MenuBottomSheetDialogF
 		View.OnClickListener onClickListener = new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				int id = v.getId();
 				if (plugin != null) {
+					int id = v.getId();
 					if (id == R.id.by_type_row) {
 						if (plugin.isParkingEventAdded()) {
 							plugin.showDeleteEventWarning(getActivity());
@@ -43,17 +43,14 @@ public class ParkingTypeBottomSheetDialogFragment extends MenuBottomSheetDialogF
 						plugin.addOrRemoveParkingEvent(false);
 						plugin.setParkingPosition(mapActivity, latLon.getLatitude(), latLon.getLongitude(), false);
 						plugin.showContextMenuIfNeeded(mapActivity);
-						mapActivity.getMapView().refreshMap();
-						dismiss();
+						mapActivity.refreshMap();
 					} else if (id == R.id.by_date_row) {
 						if (plugin.isParkingEventAdded()) {
 							plugin.showDeleteEventWarning(mapActivity);
 						}
 						plugin.setParkingPosition(mapActivity, latLon.getLatitude(), latLon.getLongitude(), true);
-						plugin.showSetTimeLimitDialog(mapActivity,new Dialog(getContext()));
-						(mapActivity).getMapView().refreshMap();
-					} else if (id == R.id.close_row) {
-						dismiss();
+						plugin.showSetTimeLimitDialog(mapActivity, new Dialog(getContext()));
+						mapActivity.getMapView().refreshMap();
 					}
 				}
 				dismiss();
@@ -62,7 +59,6 @@ public class ParkingTypeBottomSheetDialogFragment extends MenuBottomSheetDialogF
 
 		mainView.findViewById(R.id.by_type_row).setOnClickListener(onClickListener);
 		mainView.findViewById(R.id.by_date_row).setOnClickListener(onClickListener);
-		mainView.findViewById(R.id.close_row).setOnClickListener(onClickListener);
 		setupHeightAndBackground(mainView, R.id.scroll_view);
 
 		return mainView;
